@@ -65,3 +65,9 @@ Source code structure:
 ├── user.h    - User library: definitions of structs and constants
 ├── user.ld   - User: linker script (memory layout definition)
 └── run.sh    - Build script
+
+File Sections:
+.text	This section contains the code of the program.
+.rodata	This section contains constant data that is read-only.
+.data	This section contains read/write data.
+.bss	This section contains read/write data with an initial value of zero.
