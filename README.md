@@ -1,2 +1,2 @@
-# microkernel
+# Microkernel
 A microkernel in C
