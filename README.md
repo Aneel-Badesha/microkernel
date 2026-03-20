@@ -22,6 +22,12 @@ This project implements a Kernel from scratch on 32-bit RISC-V (RV32). The ISA w
 - [ ] File system — manage files on disk
 - [ ] Command-line shell — user interface
 
+**Potential Features**
+- [ ] Interrupt handling — replace polling-based I/O with interrupt-driven I/O
+- [ ] Timer processing — enable preemptive multitasking via hardware timer interrupts
+- [ ] Inter-process communication — pipe, UNIX domain socket, and shared memory
+- [ ] Multi-processor support — run the kernel across multiple CPU cores (SMP)
+
 ## Source Structure
 
 ```
