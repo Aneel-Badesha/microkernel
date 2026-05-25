@@ -177,7 +177,6 @@ void handle_syscall(struct trap_frame *f)
                 f->a0 = ch;
                 break;
             }
-
             yield();
         }
         break;
@@ -189,6 +188,12 @@ void handle_syscall(struct trap_frame *f)
         const char *filename = (const char *)f->a0;
         char *buf = (char *)f->a1;
         int len = f->a2;
+
+        if (len < 0) {
+            f->a0 = -1;
+            break;
+        }
+
         struct file *file = fs_lookup(filename);
         if (!file) {
             printf("file not found: %s\n", filename);
@@ -196,14 +201,17 @@ void handle_syscall(struct trap_frame *f)
             break;
         }
 
-        if (len > (int)sizeof(file->data))
-            len = file->size;
-
         if (f->a3 == SYS_WRITEFILE) {
+            if (len > (int)sizeof(file->data)) {
+                len = sizeof(file->data);
+            }
             memcpy(file->data, buf, len);
             file->size = len;
             fs_flush();
-        } else {
+        } else { // SYS_READFILE
+            if (len > file->size) {
+                len = file->size;
+            }
             memcpy(buf, file->data, len);
         }
 
